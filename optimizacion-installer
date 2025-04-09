@@ -1,0 +1,36 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Detalles del dispositivo
+echo -e "\e[1;36m📱 Detectando dispositivo...\e[0m"
+model=$(getprop ro.product.model)
+brand=$(getprop ro.product.brand)
+version=$(getprop ro.build.version.release)
+
+echo -e "\e[1;33m✅ Dispositivo detectado: $brand $model - Android $version\e[0m"
+sleep 1
+
+# Liberar RAM
+echo -e "\n🚀 Liberando RAM y cerrando apps en segundo plano..."
+am kill-all
+sleep 1
+
+# Optimización de archivos temporales
+echo -e "\n🧹 Limpiando basura temporal..."
+rm -rf /data/data/com.termux/files/home/tmp/*
+rm -rf /data/data/com.termux/files/usr/tmp/*
+sleep 1
+
+# Ajustes de touch (solo si el kernel lo permite)
+echo -e "\n🎯 Ajustando sensibilidad táctil..."
+settings put system pointer_speed 7
+sleep 1
+
+# Aumentar prioridad (solo visible si FF está abierto)
+echo -e "\n⚙️ Preparando entorno para máximo rendimiento..."
+renice -n -20 -p $$ > /dev/null 2>&1
+
+# Resultado final
+echo -e "\n✅ Optimización completa. ¡Ya puedes entrar a Free Fire y pegar todo rojo! 🔥🔥🔥"
+termux-toast -b red -g middle -s "Optimizador completado. ¡Pega todo rojo!"
+
+
